@@ -65,6 +65,10 @@ namespace _Scripts {
 
         private PlayerState _playerState;
 
+        public PlayerState GetPlayerState() {
+            return _playerState;
+        }
+
         private void SwitchState(int num) {
             if (num >= 0 && num <= 5 && _playerState != (PlayerState)num) {
                 _playerState = (PlayerState)num;
