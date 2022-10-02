@@ -64,7 +64,6 @@ namespace _Scripts {
             position = Calc.RandomRange(position, 0.2f);
             var temp = Instantiate(playerBullet, position, Quaternion.Euler(0, 0, direction));
             temp.SetDirection(direction);
-            Debug.Log("Fire");
         }
     }
 }

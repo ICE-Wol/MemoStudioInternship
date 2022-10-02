@@ -1,4 +1,5 @@
 using System;
+using _Scripts.Function;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -35,7 +36,8 @@ namespace _Scripts {
         public void SetAnimation(SpriteRenderer sprRenderer,PlayerState state, int speed) {
             if (_timer % speed == 0) {
                 _pointer++;
-                if (_pointer >= animLength[(int)state] - 1) _pointer = 0;
+                if (_pointer >= animLength[(int)state] - 1)
+                    _pointer = 0;
             }
             
             switch (state) {
@@ -72,45 +74,80 @@ namespace _Scripts {
         }
 
         private SpriteRenderer _sprRenderer;
+        private Rigidbody2D _rigidbody2D;
         
         private void Awake() {
             _sprRenderer = GetComponent<SpriteRenderer>();
+            _rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
-        private float _speed;
+        private float _runSpeed;
+        private float _jumpSpeed;
         
         void Start() {
-            _speed = 0.1f;
+            _runSpeed = 5f;
+            _jumpSpeed = 8f;
             _timer = 0;
             _pointer = 0;
             _playerState = PlayerState.Idle;
         }
+
+        private float _horMovement;
+        private float _verMovement;
+        private bool _isJumpPressed;
         
+        void Update() {
+            /*if(_horMovement == 0)*/ _horMovement = Input.GetAxisRaw("Horizontal");
+            /*if(_verMovement == 0)*/ _verMovement = Input.GetAxisRaw("Vertical");
+            if(!_isJumpPressed) _isJumpPressed = Input.GetKeyDown(KeyCode.UpArrow);
+        }
         
         void FixedUpdate() {
-            var hor = Input.GetAxisRaw("Horizontal");
-            var ver = Input.GetAxisRaw("Vertical");
-            if (hor != 0) {
-                var temp = hor < 0 ? 1f : -1f;
-                transform.localScale = new Vector3(temp, 1, 1);
-                if(ver < 0) SwitchState(2);
-                else if(ver == 0) SwitchState(1);
-            }
-            else{
-                if(ver < 0) SwitchState(4);
-                else if(ver == 0) SwitchState(0);
+            var hor = _horMovement;
+            var ver = _verMovement;
+
+            if (_playerState != PlayerState.Jump && _playerState != PlayerState.JumpIdle) {
+                if (ver > 0) {
+                    SwitchState(3);
+                }
+                else {
+                    if (hor != 0) {
+                        if (ver < 0) SwitchState(2);
+                        else if (ver == 0) SwitchState(1);
+                    }
+                    else {
+                        if (ver < 0) SwitchState(4);
+                        else if (ver == 0) SwitchState(0);
+                    }
+                }
+            }else if (_playerState == PlayerState.Jump) {
+                if (_pointer == animLength[(int)_playerState] - 2) {
+                    SwitchState(5);
+                }
             }
 
-            var speed = _speed;
+            if((_playerState == PlayerState.Jump || 
+                _playerState == PlayerState.JumpIdle) &&
+               Calc.Equal(_rigidbody2D.velocity.y, 0f))
+                SwitchState(0);
+            
+            //_verMovement = 0;
+            //_horMovement = 0;
+
+            var speed = _runSpeed;
             if (_playerState == PlayerState.Crouch) speed /= 2f;
 
-            transform.position += new Vector3(hor * speed, 0, 0);
-
-            /*if (Input.GetAxisRaw("Vertical") > 0) {
-                SwitchState(3);
-            }*/
+            var temp = hor < 0 ? 1f : -1f;
+            transform.localScale = new Vector3(temp, 1, 1);
+            _rigidbody2D.position += Vector2.right * hor * speed * Time.fixedDeltaTime;
             
-            SetAnimation(_sprRenderer, _playerState,5);
+            if (_isJumpPressed && Calc.Equal(_rigidbody2D.velocity.y, 0f)) {
+                _rigidbody2D.velocity += Vector2.up * _jumpSpeed;
+                _isJumpPressed = false;
+            }
+
+
+            SetAnimation(_sprRenderer, _playerState,10);
         }
     }
 }
