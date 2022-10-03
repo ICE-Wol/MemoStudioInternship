@@ -16,7 +16,7 @@ namespace _Scripts {
             transform.position = pos;
             transform.rotation = qua;
             _direction = dir + Random.Range(-5f,5f);
-        }
+        } 
         
         // Start is called before the first frame update
         void Start() {

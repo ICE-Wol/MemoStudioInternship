@@ -53,18 +53,11 @@ namespace _Scripts {
             //Fire
             if (_isOnUse && Input.GetAxis("Fire1") > 0) {
                 _timer++;
-                if(_timer % 20 == 0) Fire(transform.position, -_gunFrame * 10.7f);
+                if(_timer % 20 == 0) 
+                    PlayerBulletManager.Manager.BarbetteFire
+                    (transform.position, -_gunFrame * 10.7f, _fireRadius);
             }
             
-        }
-
-        void Fire(Vector3 position, float direction) {
-            position.y += _fireRadius * Mathf.Cos(Mathf.Deg2Rad * direction);
-            position.x -= _fireRadius * Mathf.Sin(Mathf.Deg2Rad * direction);
-            position = Calc.RandomRange(position, 0.2f);
-            //var temp = Instantiate(playerBullet, position, Quaternion.Euler(0, 0, direction));
-            var temp = PlayerBulletManager.Manager.Pool.Get();
-            temp.SetProperties(position, Quaternion.Euler(0, 0, direction), direction);
         }
     }
 }

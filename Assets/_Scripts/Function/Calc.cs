@@ -22,9 +22,10 @@ namespace _Scripts.Function {
                    Equal(argument1.z, argument2.z, epsilon);
         }
 
-        public static Vector3 Direction(float degree) {
+        public static Vector3 Degree2Direction(float degree) {
             return new Vector3(Mathf.Cos(Mathf.Deg2Rad * degree), Mathf.Sin(Mathf.Deg2Rad * degree), 0f);
         }
+        
         
         /// <summary>
         /// A function which approach the current value to the target value, the closer the slower.
