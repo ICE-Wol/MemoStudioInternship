@@ -62,8 +62,9 @@ namespace _Scripts {
             position.y += _fireRadius * Mathf.Cos(Mathf.Deg2Rad * direction);
             position.x -= _fireRadius * Mathf.Sin(Mathf.Deg2Rad * direction);
             position = Calc.RandomRange(position, 0.2f);
-            var temp = Instantiate(playerBullet, position, Quaternion.Euler(0, 0, direction));
-            temp.SetDirection(direction);
+            //var temp = Instantiate(playerBullet, position, Quaternion.Euler(0, 0, direction));
+            var temp = PlayerBulletManager.Manager.Pool.Get();
+            temp.SetProperties(position, Quaternion.Euler(0, 0, direction), direction);
         }
     }
 }
