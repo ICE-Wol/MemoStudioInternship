@@ -1,13 +1,18 @@
 using System;
 using _Scripts.Function;
+using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Scripts {
     public class BodyController : MonoBehaviour {
         [SerializeField] private FootController fc;
         [SerializeField] private Vector3[] offset;
         [SerializeField] private Transform pivot;
-        [SerializeField] private float _fireRadius;
+        [SerializeField] private Grenade grenade;
+        [FormerlySerializedAs("_fireRadius")] [SerializeField] private float fireRadius;
+        
         private Animator _animator;
         private int _timer = 0;
 
@@ -63,17 +68,24 @@ namespace _Scripts {
             }
 
             Vector3 dir2 = (new Vector3( dir.y, -dir.x, 0f)).normalized;
-            //Debug.Log(dir2);
 
-            //Debug.Log(Input.mousePosition + " " + mouse + " " + ori);
             if (Input.GetAxis("Fire1") > 0) {
                 _timer++;
                 if (_timer % 20 == 0)
                     PlayerBulletManager.Manager.PlayerFire
-                        (transform.position, dir2, _fireRadius);
+                        (transform.position, dir2, fireRadius);
+            }
+
+            if (Input.GetKeyDown(KeyCode.X)) {
+                Instantiate(grenade,transform.position,quaternion.Euler(0f,0f,0f));
             }
             
-            pivot.rotation = Quaternion.Euler(0,0,Vector2.SignedAngle(Vector2.right, dir));
+            
+
+            var angle = Vector2.Angle(Vector2.right, dir);
+            if (angle > 90f) angle = angle - 180f;
+            
+            pivot.rotation = Quaternion.Euler(0,0,angle);
         }
     }
 }

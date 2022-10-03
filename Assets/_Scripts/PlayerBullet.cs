@@ -33,7 +33,7 @@ namespace _Scripts {
         }
 
         private void OnBecameInvisible() {
-            PlayerBulletManager.Manager.Pool.Release(this);
+            PlayerBulletManager.Manager.PlayerBulletPool.Release(this);
         }
     }
 }

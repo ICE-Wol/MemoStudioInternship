@@ -201,7 +201,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7637243817183542567}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.95, y: 1.58, z: 8.426966}
+  m_LocalPosition: {x: -1.95, y: 1.58, z: -1}
   m_LocalScale: {x: 9.363296, y: 9.363296, z: 9.363296}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -294,9 +294,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fc: {fileID: 448907028}
   offset:
-  - {x: 0.05, y: 0.29, z: 0.1}
-  - {x: -0.02, y: 0.2, z: 0.1}
-  - {x: 0.05, y: 0.3, z: 0.1}
+  - {x: 0.05, y: 0.29, z: -0.1}
+  - {x: -0.02, y: 0.2, z: -0.1}
+  - {x: 0.05, y: 0.3, z: -0.1}
   pivot: {fileID: 453039722312730503}
   _fireRadius: 0.8
 --- !u!1 &8616678384618572258
@@ -339,7 +339,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8616678384618572258}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1

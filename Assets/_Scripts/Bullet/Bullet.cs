@@ -1,8 +1,6 @@
-using System;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
-namespace _Scripts
+namespace _Scripts.Bullet
 {
     public class Bullet : MonoBehaviour
     {
