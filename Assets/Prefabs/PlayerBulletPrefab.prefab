@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 2923568394022719345}
   - component: {fileID: 2923568394022719346}
   - component: {fileID: 2923568394022719347}
+  - component: {fileID: 5147176969366429246}
   m_Layer: 8
   m_Name: PlayerBulletPrefab
-  m_TagString: Untagged
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,7 +54,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -71,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1769139607
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -187292303, guid: 1560972af5e088b48bbf7c926ca562da, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -97,3 +98,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a918f402640b64c9f73de7eb76360c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &5147176969366429246
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2923568394022719340}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.125

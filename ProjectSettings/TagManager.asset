@@ -9,6 +9,9 @@ TagManager:
   - Interactable
   - Bullet
   - Particle
+  - Barbette
+  - Undefined
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX
@@ -43,6 +46,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Enviorment
+    uniqueID: 2236620521
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Enemys
+    uniqueID: 3389223207
+    locked: 0
+  - name: Interactables
+    uniqueID: 3512810407
+    locked: 0
+  - name: Player
+    uniqueID: 2359185377
+    locked: 0
+  - name: Bullets
+    uniqueID: 1769139607
     locked: 0

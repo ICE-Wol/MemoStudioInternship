@@ -11,7 +11,7 @@ namespace _Scripts {
             _rigidbody2D = GetComponent<Rigidbody2D>();
             Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 pos = transform.position;
-            _rigidbody2D.velocity = power * (pos - mouse).normalized;
+            _rigidbody2D.velocity = power * (mouse - pos).normalized;
         }
 
         private void OnCollisionEnter2D(Collision2D col) {

@@ -23,6 +23,7 @@ namespace _Scripts.Particles {
             _num = num;
             _mul = mul;
             _ord = ord;
+            transform.localScale = Vector3.one;
         }
 
 
@@ -32,8 +33,8 @@ namespace _Scripts.Particles {
             switch (type) {
                 case 1:
                     Vector3 pos;
-                    pos.x = _ord * 0.001f * _timer * Mathf.Cos(_num * 36f + _mul * _timer / 90f);
-                    pos.y = _ord * 0.001f * _timer * Mathf.Sin(_num * 36f + _mul * _timer / 90f);
+                    pos.x = _ord * 0.001f * _timer * Mathf.Cos((_num * 36f + _mul * _timer / 3f) * Mathf.Deg2Rad);
+                    pos.y = _ord * 0.001f * _timer * Mathf.Sin((_num * 36f + _mul * _timer / 3f) * Mathf.Deg2Rad);
                     pos.z = 0f;
                     transform.position = birthPoint + pos;
 

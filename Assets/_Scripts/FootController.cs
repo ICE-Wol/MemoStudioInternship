@@ -1,5 +1,6 @@
 using System;
 using _Scripts.Function;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -100,13 +101,16 @@ namespace _Scripts {
         private float _verMovement;
         private bool _isJumpPressed;
         
+        /*void Update() {
+            /*if(_horMovement == 0) _horMovement = Input.GetAxisRaw("Horizontal");
+            /*if(_verMovement == 0) _verMovement = Input.GetAxisRaw("Vertical");
+            if(!_isJumpPressed) _isJumpPressed = Input.GetKeyDown(KeyCode.UpArrow);
+        }*/
+
         void Update() {
             /*if(_horMovement == 0)*/ _horMovement = Input.GetAxisRaw("Horizontal");
             /*if(_verMovement == 0)*/ _verMovement = Input.GetAxisRaw("Vertical");
-            if(!_isJumpPressed) _isJumpPressed = Input.GetKeyDown(KeyCode.UpArrow);
-        }
-        
-        void FixedUpdate() {
+            /*if(!_isJumpPressed)*/ _isJumpPressed = Input.GetKeyDown(KeyCode.W);
             var hor = _horMovement;
             var ver = _verMovement;
 
@@ -143,7 +147,13 @@ namespace _Scripts {
 
             var temp = hor < 0 ? 1f : -1f;
             transform.localScale = new Vector3(temp, 1, 1);
-            _rigidbody2D.position += Vector2.right * hor * speed * Time.fixedDeltaTime;
+            //While using rigidbody u should never modify position directly
+            //Instead u should only give it a velocity aka speed
+            //and this speed should only be on a instant(if its +=)
+            //or it will be super fast.
+            _rigidbody2D.velocity =
+                new Vector2(hor * speed, _rigidbody2D.velocity.y);
+            //Debug.Log(_rigidbody2D.velocity);
             
             if (_isJumpPressed && Calc.Equal(_rigidbody2D.velocity.y, 0f)) {
                 _rigidbody2D.velocity += Vector2.up * _jumpSpeed;
@@ -151,7 +161,7 @@ namespace _Scripts {
             }
 
 
-            SetAnimation(_sprRenderer, _playerState,10);
+            SetAnimation(_sprRenderer, _playerState,45);
         }
     }
 }

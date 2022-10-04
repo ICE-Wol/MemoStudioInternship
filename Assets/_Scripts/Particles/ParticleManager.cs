@@ -30,6 +30,5 @@ namespace _Scripts.Particles {
                 Destroy(p.gameObject);
             }, false, 200, 400);
         }
-        
     }
 }
