@@ -2,7 +2,8 @@
 
 namespace _Scripts.Function {
     public class Calc : MonoBehaviour {
-        private static float _epsilon = 0.01f;
+        //if too big, the following traces will be a rectangle.
+        private static float _epsilon = 0.001f;
 
         public static bool Equal(float argument1, float argument2) {
             return Mathf.Abs(argument1 - argument2) <= _epsilon;
@@ -22,8 +23,8 @@ namespace _Scripts.Function {
                    Equal(argument1.z, argument2.z, epsilon);
         }
 
-        public static Vector3 Degree2Direction(float degree) {
-            return new Vector3(Mathf.Cos(Mathf.Deg2Rad * degree), Mathf.Sin(Mathf.Deg2Rad * degree), 0f);
+        public static Vector2 Degree2Direction(float degree) {
+            return new Vector2(Mathf.Cos(Mathf.Deg2Rad * degree), Mathf.Sin(Mathf.Deg2Rad * degree));
         }
         
         
