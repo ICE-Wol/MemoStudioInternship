@@ -22,6 +22,8 @@ namespace _Scripts {
             if (health <= 0) {
                 DestroyEvent();
             }
+            
+            if(transform.position.y <= -10f) Destroy(this.gameObject);
         }
 
         public override void TakeDamage() {

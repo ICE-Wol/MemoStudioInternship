@@ -3,6 +3,7 @@ using _Scripts.Function;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 namespace _Scripts {
@@ -131,8 +132,10 @@ namespace _Scripts {
                 Instantiate(grenade,transform.position,quaternion.Euler(0f,0f,0f));
                 _numGrenade -= 1;
             }
-            
-            
+
+            if (_numLife <= 0) {
+                SceneManager.LoadScene("TitleScene");
+            }
 
             var angle = Vector2.Angle(Vector2.right, dir);
             if (angle > 90f) angle = angle - 180f;

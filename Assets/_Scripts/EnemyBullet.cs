@@ -1,5 +1,6 @@
 using System;
 using _Scripts.Function;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace _Scripts {
@@ -69,13 +70,24 @@ namespace _Scripts {
 
                     break;
                 case 2:
-                    if (_speed <= 4) _speed += 0.003f;
+                    if (_speed <= 4f) _speed += 0.003f;
                     transform.position += Time.deltaTime * _speed * (Vector3)Calc.Degree2Direction(_ord * 30f);
                     transform.rotation = Quaternion.Euler(0, 0, _ord * 15f - Mathf.Sign(_speed) * 90f);
                     break;
+                case 3:
+                    if (_speed <= 0.5f + 0.5f * Mathf.Abs(_ord % 12 - 6)) _speed += 0.003f;
+                    transform.position += Time.deltaTime * _speed * (Vector3)Calc.Degree2Direction(_ord * 5f);
+                    break;
+                case 4:
+                    if (_speed <= 0.00001f) _speed += 0.00000001f;
+                    else if( _speed <= 4f) _speed += 0.003f;
+                    transform.position += Time.deltaTime * _speed * (Vector3)Calc.Degree2Direction(_ord * 60f);
+                    transform.rotation = Quaternion.Euler(0, 0, _ord * 60f + _timer - Mathf.Sign(_speed) * 90f);
+                    break;
+                    
             }
             
-            if(Vector3.Distance(GameManager.Manager.GetPlayerPos(),this.transform.position) >= 10f)
+            if(Vector3.Distance(GameManager.Manager.GetPlayerPos(),this.transform.position) >= 12f)
                 EnemyBulletManager.Manager.EnemyBulletPool.Release(this);
         }
 
@@ -84,6 +96,7 @@ namespace _Scripts {
                 GameManager.Manager.PlayerTakeDamage(1);
                 EnemyBulletManager.Manager.EnemyBulletPool.Release(this);
             }
+            
         }
 
         private void OnBecameInvisible() {

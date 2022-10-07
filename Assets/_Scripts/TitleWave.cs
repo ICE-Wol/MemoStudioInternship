@@ -4,6 +4,7 @@ using _Scripts;
 using _Scripts.Function;
 using _Scripts.Laser;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TitleWave : MonoBehaviour {
     [SerializeField] private LaserHead laserHead;
@@ -29,6 +30,9 @@ public class TitleWave : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (Input.anyKey) {
+            SceneManager.LoadScene("Scenes/GameScene");
+        }
         if (_timer < 30) {
             titleHeads[_timer] = Instantiate(laserHead);
             titleLeads[_timer] = Instantiate(laserLead);

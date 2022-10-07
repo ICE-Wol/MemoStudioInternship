@@ -42,8 +42,20 @@ namespace _Scripts {
         }
 
         private void OnTriggerEnter2D(Collider2D col) {
+            //important:cannot interact with static
             if (col.CompareTag("Enemy")) {
+                //TODO: too slow.
                 col.gameObject.GetComponent<Enemy.Enemy>().TakeDamage();
+                PlayerBulletManager.Manager.PlayerBulletPool.Release(this);
+            }
+
+            if (col.CompareTag("Interactable")) {
+                col.gameObject.GetComponent<Barrel>().TakeDamage();
+                PlayerBulletManager.Manager.PlayerBulletPool.Release(this);
+            }
+            
+            if (col.CompareTag("Landmine")) {
+                col.gameObject.GetComponent<Landmine>().Explode();
                 PlayerBulletManager.Manager.PlayerBulletPool.Release(this);
             }
         }

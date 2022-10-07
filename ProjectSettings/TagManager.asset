@@ -12,6 +12,7 @@ TagManager:
   - Barbette
   - Undefined
   - PlayerBullet
+  - Landmine
   layers:
   - Default
   - TransparentFX
