@@ -5,11 +5,10 @@ namespace _Scripts.Enemy {
     public abstract class Enemy : MonoBehaviour {
         [SerializeField] protected int health;
         [SerializeField] protected bool useGravity;
-        protected void Attack() { }
-        protected abstract void Destroy();
+        protected int Timer;
+        protected abstract void AttackEvent();
+        protected abstract void DestroyEvent();
 
-        private void OnDestroy() {
-            Destroy();
-        }
+        public abstract void TakeDamage();
     }
 }

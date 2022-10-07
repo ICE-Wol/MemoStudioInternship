@@ -50,5 +50,15 @@ namespace _Scripts {
             //important: Signed Angle start with one.
             temp.SetProperties(position, Quaternion.Euler(0, 0, dir), dir);
         }
+        
+        public void PlayerFire(Vector3 position, Vector3 direction, float radius, float speed) {
+            var dir2 = new Vector3(direction.y, -direction.x, 0);
+            position -= dir2 * radius;
+            var temp = PlayerBulletManager.Manager.PlayerBulletPool.Get();
+            var dir = Vector2.SignedAngle(Vector2.right, direction);
+            //Debug.Log(direction);
+            //important: Signed Angle start with one.
+            temp.SetProperties(position, Quaternion.Euler(0, 0, dir), dir, speed);
+        }
     }
 }

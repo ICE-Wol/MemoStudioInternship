@@ -5,29 +5,34 @@ using UnityEngine;
 namespace _Scripts.Enemy {
     public class DropBomb : Enemy
     {
-        protected override void Destroy() {
-            
+        protected override void AttackEvent() { }
+        public override void TakeDamage() {
+            health -= 1;
+        }
+
+        protected override void DestroyEvent() {
+            for (int j = 1; j < 7; j++) {
+                for (int i = 0; i < 10; i++) {
+                    var b = EnemyBulletManager.Manager.EnemyBulletPool.Get();
+                    b.SetInitials(0, 0, j * 0.5f, i, this.transform.position);
+                }
+            }
+            Destroy(this.gameObject);
         }
 
         private void Update() {
             if (health <= 0) {
-                Destroy(this.gameObject);
+                DestroyEvent();
             }
         }
 
         private void OnTriggerEnter2D(Collider2D col) {
-            if (col.CompareTag("PlayerBullet")) {
-                health -= 5;
-            }
 
             if (col.CompareTag("Player")) {
-                Destroy(this.gameObject);
+                DestroyEvent();
             }
-
-            if (col.CompareTag("Enviorment")) {
-                Destroy(this.gameObject);
-            }
-                
         }
+
+
     }
 }

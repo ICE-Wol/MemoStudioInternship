@@ -62,6 +62,8 @@ namespace _Scripts.Laser {
         public Transform GetFollowTransform() => _follow;
         public float GetFollowRate() => _followRate;
 
+        public bool GetActivity() => _isActivated;
+
         private void RefreshMesh() {
             for (int i = 0; i < _length; i++) {
                 float col = 1 - (_color + 1) / 16f;

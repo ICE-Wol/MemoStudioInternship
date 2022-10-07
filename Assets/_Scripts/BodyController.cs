@@ -14,10 +14,21 @@ namespace _Scripts {
         [FormerlySerializedAs("_fireRadius")] [SerializeField] private float fireRadius;
         
         private Animator _animator;
-        private int _timer = 0;
+        private int _timer;
+        
+        private int _weaponType;
+        private int _numLife;
+        private int _numGrenade;
+
+        public PlayerValue GetPlayerValue() => new PlayerValue(_numLife, _numGrenade, _weaponType);
+        public void TakeDamage(int damage) => _numLife -= damage;
 
         private void Awake() {
             _animator = GetComponent<Animator>();
+            _timer = 0;
+            _weaponType = 0;
+            _numLife = 100;
+            _numGrenade = 10;
         }
 
         private void Update() {
@@ -71,13 +82,54 @@ namespace _Scripts {
 
             if (Input.GetAxis("Fire1") > 0) {
                 _timer++;
-                if (_timer % 20 == 0)
-                    PlayerBulletManager.Manager.PlayerFire
-                        (transform.position, dir2, fireRadius);
+                if (_timer % 20 == 0) {
+                    switch (_weaponType) {
+                        default:
+                            PlayerBulletManager.Manager.PlayerFire
+                                (transform.position, dir2, fireRadius);
+                            break;
+                        case 1:
+                            PlayerBulletManager.Manager.PlayerFire
+                                (transform.position, dir2, fireRadius);
+                            //TODO: package it up.
+                            float x = dir2.x * Mathf.Cos(30f * Mathf.Deg2Rad) - dir2.y * Mathf.Sin(30f * Mathf.Deg2Rad);
+                            float y = dir2.x * Mathf.Sin(30f * Mathf.Deg2Rad) + dir2.y * Mathf.Cos(30f * Mathf.Deg2Rad);
+                            Vector3 dirUp = new Vector3(x, y, 0f);
+                            float x1 = dir2.x * Mathf.Cos(330f * Mathf.Deg2Rad) - dir2.y * Mathf.Sin(330f * Mathf.Deg2Rad);
+                            float y1 = dir2.x * Mathf.Sin(330f * Mathf.Deg2Rad) + dir2.y * Mathf.Cos(330f * Mathf.Deg2Rad);
+                            Vector3 dirDown = new Vector3(x1, y1, 0f);
+                            PlayerBulletManager.Manager.PlayerFire
+                                (transform.position, dirUp, fireRadius);
+                            PlayerBulletManager.Manager.PlayerFire
+                                (transform.position, dirDown, fireRadius);
+                            break;
+                        case 2:
+                            PlayerBulletManager.Manager.PlayerFire
+                                (transform.position, dir2, fireRadius);
+                            if (_timer % 60 == 0) {
+                                for (int i = 0; i < 6; i++) {
+                                    float x2 = Mathf.Cos((_timer * _timer / 60000f + i * 60f) * Mathf.Deg2Rad);
+                                    float y2 = Mathf.Sin((_timer * _timer / 60000f + i * 60f) * Mathf.Deg2Rad);
+                                    var dirSix = new Vector3(x2, y2, 0f);
+                                    PlayerBulletManager.Manager.PlayerFire
+                                        (transform.position, dirSix, fireRadius, 0.03f);
+                                }
+                            }
+
+                            break;
+
+                    }
+                }
             }
 
-            if (Input.GetKeyDown(KeyCode.X)) {
+            if (Input.GetKeyDown(KeyCode.Q)) {
+                _weaponType += 1;
+                if (_weaponType >= 3) _weaponType = 0;
+            }
+            
+            if (Input.GetKeyDown(KeyCode.X) && _numGrenade > 0) {
                 Instantiate(grenade,transform.position,quaternion.Euler(0f,0f,0f));
+                _numGrenade -= 1;
             }
             
             
