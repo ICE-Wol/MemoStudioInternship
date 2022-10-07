@@ -3,10 +3,10 @@
 namespace _Scripts.Function {
     public class Calc : MonoBehaviour {
         //if too big, the following traces will be a rectangle.
-        private static float _epsilon = 0.001f;
+        private const float Epsilon = 0.00001f;
 
         public static bool Equal(float argument1, float argument2) {
-            return Mathf.Abs(argument1 - argument2) <= _epsilon;
+            return Mathf.Abs(argument1 - argument2) <= Epsilon;
         }
         public static bool Equal(float argument1, float argument2, float epsilon) {
             return Mathf.Abs(argument1 - argument2) <= epsilon;
@@ -36,7 +36,7 @@ namespace _Scripts.Function {
         /// <param name="rate">the rate of approach process, the bigger the slower.</param>
         /// <returns></returns>
         public static float Approach(float current, float target, float rate) {
-            if (Mathf.Abs(current - target) >= _epsilon) {
+            if (Mathf.Abs(current - target) >= Epsilon) {
                 current -= (current - target) / rate;
             }
             else {

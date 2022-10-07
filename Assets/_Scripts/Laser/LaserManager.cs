@@ -7,7 +7,6 @@ namespace _Scripts.Laser {
     public class LaserManager : MonoBehaviour
     {
         [SerializeField] private LaserUnit laserUnit;
-        [SerializeField] private LaserHead test;
         public ObjectPool<LaserUnit> LaserPool;
 
         public static LaserManager Manager;
@@ -32,14 +31,6 @@ namespace _Scripts.Laser {
             }, unit => {
                 Destroy(unit.gameObject);
             }, false, 100, 1000);
-            
-            test.GenerateLaser(100);
-        }
-
-        private void Update() {
-            //Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //test.transform.position = pos;
-            //Debug.Log(pos);
         }
     }
 }
